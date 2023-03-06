@@ -3,11 +3,12 @@ Covid 19 Data Exploration
 Skills used: Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
 */
 
+--Loading Data 
 select*
 from [Portfolio project]..CovidDeath
-where continent is not null
 order by 3,4
 
+-- Loading Data without Null in continent
 select*
 from [Portfolio project]..CovidVacination
 where continent is not null
@@ -100,7 +101,8 @@ on dea.location = vac.location
 and dea.date = vac.date
 where dea.continent is not null
 order by 1,2,3
------
+
+-----suming new vaccinations by location
 select dea.continent,dea.location,dea.date,dea.population,vac.new_vaccinations
 ,SUM(cast(vac.new_vaccinations as int )) OVER (partition by dea.location order by dea.location,
 dea.Date) as Rolling_people_vaccinated 
@@ -112,10 +114,10 @@ where dea.continent is not null
 order by 2,3
 
 --- USE CTE 
+
 WITH popvsvac (continent ,location, Date, population,Rolling_people_vaccinated,new_vaccinations)
 as
 (
-
 select dea.continent,dea.location,dea.date,dea.population,vac.new_vaccinations
 ,SUM(cast(vac.new_vaccinations as int )) OVER (partition by dea.location order by dea.location,
 dea.Date) as Rolling_people_vaccinated 
@@ -128,32 +130,6 @@ where dea.continent is not null
 )
 select *,(Rolling_people_vaccinated/population)*100
 from popvsvac
-
-
-
---- TEMP TABLE 
-drop table if exists #percentpopulationvaccinated
-create table #percentpopulationvaccinated
-(
-continent nvarchar(255),
-location nvarchar(255),
-Date datetime,
-population bigint,
-New_vaccinations bigint,
-Rolling_people_vaccinated bigint,
-)
-INSERT INTO #percentpopulationvaccinated
-select dea.continent,dea.location,dea.date,dea.population,vac.new_vaccinations
-,SUM(convert(int,vac.new_vaccinations)) OVER (partition by dea.location order by dea.location,
-dea.Date) as Rolling_people_vaccinated 
-from [Portfolio project]..CovidDeath dea
-join [Portfolio project]..CovidVacination vac
-on dea.location = vac.location
-and dea.date = vac.date
-where dea.continent is not null
---order by 2,3
-select *,(Rolling_people_vaccinated/population)*100
-from #percentpopulationvaccinated
 
 
 --- creating view or data visualizations 
