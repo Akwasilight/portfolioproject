@@ -2,6 +2,7 @@
 ---cleaning data  (Housing data )
 */
 
+--loading data all columns 
 select *
 from [Portfolio project]..Housing
 
