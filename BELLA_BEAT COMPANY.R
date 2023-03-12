@@ -1,5 +1,13 @@
+Google Data Analysis Capstone
 
-                  BellaBeat Company
+              Case Study:   BellaBeat Company
+
+About the Company:
+
+A technology business called Bellabeat was established in 2013 with the goal of developing cutting-edge health and wellness solutions exclusively for women.
+The business is dedicated to providing women with the tools and information they need to achieve their health objectives and enhance their general quality of life.
+The fitness trackers and smart jewelry from Bellabeat are intended to measure many elements of women's health, including activity levels, sleep quality, stress levels, and reproductive health. 
+The firm focuses on making useful and fashionable electronics, and its products mix technology with aesthetics.
 
 #Buiness task 
 Analyze smart device usage data in order to gain insight into how people are 
